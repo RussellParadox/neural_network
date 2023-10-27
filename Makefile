@@ -21,7 +21,7 @@ HEADERS =
 
 LIB_LINK = 
 
-SRC = nn_cli.c
+SRC = cli.c free_array.c split_context.c input_parser.c read_line.c cmd_parser.c
 
 OBJ = $(SRC:.c=.o)
 

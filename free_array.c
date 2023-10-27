@@ -10,35 +10,30 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| neural_network.h |
-//+==================+
+//| free_array.c |
+//+==============+
 
-#ifndef NEURAL_NETWORK_H
-# define NEURAL_NETWORK_H
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include <ctype.h>
+#include "neural_network.h"
 
-//cli
-# define PROMPT ">>>"
-# define PROMPT_LEN strlen(PROMPT)
-# define INPUT_LEN 500
+void	free_array_nodes(void *node, size_t size, unsigned int dimension)
+{
+	if (node == NULL)
+		return ;
+	while (*(void **)node != NULL)
+	{
+		if (dimension > 2)
+			free_array_nodes(*(void **)node, size, dimension - 1);
+		free(*(void **)node);
+		node += size;
+	}
+}
 
-//read line
-int	read_line(char *prompt, int prompt_len, char *buffer, int buffer_len);
-
-//free array
-void	free_array(void *root, unsigned int dimension);
-
-//split context
-char	**split_context(char *str, int (*context)(char c));
-
-//input parser
-char	**input_parser(char input[INPUT_LEN + 1]);
-
-//cmd parser
-void	cmd_parser(char **cmd);
-
-#endif
+//free each dimension of a dynamic multi-dimensionnal
+//array NULL terminated on any other dimension than the first
+void	free_array(void *root, unsigned int dimension)
+{
+	if (root == NULL)
+		return ;
+	free_array_nodes(root, sizeof(void *), dimension);
+	free(root);
+}

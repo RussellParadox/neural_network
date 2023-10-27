@@ -10,46 +10,40 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| nn_cli.c |
-//+==========+
+//| cli.c |
+//+=======+
 
 #include "neural_network.h"
 
-int	read_line(char *prompt, int prompt_len, char *buffer, int buffer_len)
+void	print_cmd(char **cmd)
 {
-	ssize_t	read_size;
+	int	i;
 
-	memset(buffer, '\0', buffer_len + 1);
-	if (write(1, prompt, prompt_len) < 0)
-		perror("write");
-	else
+	i = 0;
+	while (cmd[i] != NULL)
 	{
-		read_size = read(0, buffer, buffer_len);
-		if (read_size < 0)
-			perror("read");
-		else
-		{
-			if (read_size != 0)
-				buffer[read_size - 1] = '\0';
-			return (0);
-		}
+		write(1, cmd[i], strlen(cmd[i]));
+		write(1, "\n", 1);
+		i++;
 	}
-	return (-1);
 }
 
 int	cli_loop(void)
 {
 	char	input[INPUT_LEN + 1];
+	char	**cmd;
 
+	cmd = NULL;
 	while (1)
 	{
 		if (read_line(PROMPT, PROMPT_LEN, input, INPUT_LEN) < 0)
 			break ;
-		//cli_parser(input);
-		if (write(1, input, strlen(input)) < 0)
-			perror("write");
-		if (!strncmp(input, "exit", 5))
+		cmd = input_parser(input);
+		if (cmd == NULL)
 			break ;
+		cmd_parser(cmd);
+		//print_cmd(cmd);
+		free_array(cmd, 2);
 	}
 	return (EXIT_SUCCESS);
 }

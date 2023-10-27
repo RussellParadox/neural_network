@@ -10,35 +10,30 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| neural_network.h |
-//+==================+
+//| read_line.c |
+//+=============+
 
-#ifndef NEURAL_NETWORK_H
-# define NEURAL_NETWORK_H
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include <ctype.h>
+#include "neural_network.h"
 
-//cli
-# define PROMPT ">>>"
-# define PROMPT_LEN strlen(PROMPT)
-# define INPUT_LEN 500
+//Print a prompt and wait for an input, then redirect in buffer
+int	read_line(char *prompt, int prompt_len, char *buffer, int buffer_len)
+{
+	ssize_t	read_size;
 
-//read line
-int	read_line(char *prompt, int prompt_len, char *buffer, int buffer_len);
-
-//free array
-void	free_array(void *root, unsigned int dimension);
-
-//split context
-char	**split_context(char *str, int (*context)(char c));
-
-//input parser
-char	**input_parser(char input[INPUT_LEN + 1]);
-
-//cmd parser
-void	cmd_parser(char **cmd);
-
-#endif
+	memset(buffer, '\0', buffer_len + 1);
+	if (write(1, prompt, prompt_len) < 0)
+		perror("write");
+	else
+	{
+		read_size = read(0, buffer, buffer_len);
+		if (read_size < 0)
+			perror("read");
+		else
+		{
+			if (read_size != 0)
+				buffer[read_size - 1] = '\0';
+			return (0);
+		}
+	}
+	return (-1);
+}

@@ -10,35 +10,22 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| neural_network.h |
-//+==================+
+//| input_parser.c |
+//+================+
 
-#ifndef NEURAL_NETWORK_H
-# define NEURAL_NETWORK_H
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include <ctype.h>
+#include "neural_network.h"
 
-//cli
-# define PROMPT ">>>"
-# define PROMPT_LEN strlen(PROMPT)
-# define INPUT_LEN 500
+int	isnotspace(char c)
+{
+	return (!isspace(c));
+}
 
-//read line
-int	read_line(char *prompt, int prompt_len, char *buffer, int buffer_len);
+char	**input_parser(char input[INPUT_LEN + 1])
+{
+	char	**cmd;
 
-//free array
-void	free_array(void *root, unsigned int dimension);
-
-//split context
-char	**split_context(char *str, int (*context)(char c));
-
-//input parser
-char	**input_parser(char input[INPUT_LEN + 1]);
-
-//cmd parser
-void	cmd_parser(char **cmd);
-
-#endif
+	cmd = split_context(input, isnotspace);
+	if (cmd == NULL)
+		return (NULL);
+	return (cmd);
+}
