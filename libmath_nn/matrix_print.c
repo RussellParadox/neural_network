@@ -10,58 +10,28 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| cli.c |
-//+=======+
+//| matrix_print.c |
+//+================+
 
-#include "neural_network.h"
+#include "math_nn.h"
 
-void	print_cmd(char **cmd)
+void	matrix_print(t_matrix *m)
 {
-	int	i;
+	unsigned int	i;
+	unsigned int	j;
 
+	printf("\n");
 	i = 0;
-	while (cmd[i] != NULL)
+	while (i < m->row)
 	{
-		write(1, cmd[i], strlen(cmd[i]));
-		write(1, "\n", 1);
+		j = 0;
+		while (j < m->col)
+		{
+			printf("\t%.2f", m->v[i][j]);
+			j++;
+		}
+		printf("\n");
 		i++;
 	}
-}
-
-float	generator_test(float min, float max)
-{
-	(void)min;
-	(void)max;
-	return (1);
-}
-
-int	cli_loop(void)
-{
-	char	input[INPUT_LEN + 1];
-	char	**cmd;
-	t_matrix	*m;
-
-	m = matrix_new(3, 3);
-	matrix_init(m, generator_test, 0., 0.);
-	matrix_print(m);
-	matrix_free(m);
-	cmd = NULL;
-	while (1)
-	{
-		if (read_line(PROMPT, PROMPT_LEN, input, INPUT_LEN) < 0)
-			break ;
-		cmd = input_parser(input);
-		if (cmd == NULL)
-			break ;
-		if (cmd[0] != NULL)
-			cmd_parser(cmd);
-		free_array(cmd, 2);
-	}
-	return (EXIT_SUCCESS);
-}
-
-//A neural network command line interface
-int	main(void)
-{
-	return (cli_loop());
+	printf("\n");
 }

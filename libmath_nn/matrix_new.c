@@ -10,58 +10,41 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| cli.c |
-//+=======+
+//| matrix_new.c |
+//+==============+
 
-#include "neural_network.h"
+#include "math_nn.h"
 
-void	print_cmd(char **cmd)
+t_matrix	*matrix_new(unsigned int row, unsigned int col)
 {
-	int	i;
+	t_matrix	*m;
+	unsigned int	i;
 
-	i = 0;
-	while (cmd[i] != NULL)
+	if (row < 1 || col < 1)
+		return (NULL);
+	m = (t_matrix *)malloc(sizeof(t_matrix));
+	if (m == NULL)
+		return (NULL);
+	m->v = (float **)malloc(sizeof(float *) * (row + 1));
+	if (m->v == NULL)
 	{
-		write(1, cmd[i], strlen(cmd[i]));
-		write(1, "\n", 1);
+		free(m);
+		return (NULL);
+	}
+	i = 0;
+	while (i < row)
+	{
+		m->v[i] = (float *)malloc(sizeof(float) * col);
+		if (m->v[i] == NULL)
+		{
+			free_array(m->v, 2);
+			free(m);
+			return (NULL);
+		}
 		i++;
 	}
-}
-
-float	generator_test(float min, float max)
-{
-	(void)min;
-	(void)max;
-	return (1);
-}
-
-int	cli_loop(void)
-{
-	char	input[INPUT_LEN + 1];
-	char	**cmd;
-	t_matrix	*m;
-
-	m = matrix_new(3, 3);
-	matrix_init(m, generator_test, 0., 0.);
-	matrix_print(m);
-	matrix_free(m);
-	cmd = NULL;
-	while (1)
-	{
-		if (read_line(PROMPT, PROMPT_LEN, input, INPUT_LEN) < 0)
-			break ;
-		cmd = input_parser(input);
-		if (cmd == NULL)
-			break ;
-		if (cmd[0] != NULL)
-			cmd_parser(cmd);
-		free_array(cmd, 2);
-	}
-	return (EXIT_SUCCESS);
-}
-
-//A neural network command line interface
-int	main(void)
-{
-	return (cli_loop());
+	m->v[i] = NULL;
+	m->row = row;
+	m->col = col;
+	return (m);
 }

@@ -20,9 +20,16 @@
 # include <stdlib.h>
 # include <string.h>
 # include <ctype.h>
+# include <math_nn.h>
+
+typedef struct s_neural_network
+{
+	t_matrix	*node;
+	t_matrix	*weight;
+}	t_neural_network;
 
 //cli
-# define PROMPT ">>>"
+# define PROMPT "<<< "
 # define PROMPT_LEN strlen(PROMPT)
 # define INPUT_LEN 500
 

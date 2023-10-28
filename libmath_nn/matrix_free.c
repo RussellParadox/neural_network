@@ -10,24 +10,13 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| cmd_parser.c |
-//+==============+
+//| matrix_free.c |
+//+===============+
 
-#include "neural_network.h"
+#include "math_nn.h"
 
-void	cmd_parser(char **cmd)
+void	matrix_free(t_matrix *m)
 {
-	if (!strcmp(cmd[0], "exit"))
-	{
-		free_array(cmd, 2);
-		exit(EXIT_SUCCESS);
-	}
-	/*
-	if (!strcmp(cmd[0], "init"))
-		init_nn(cmd);
-	if (!strcmp(cmd[0], "train"))
-		train_nn(cmd);
-	if (!strcmp(cmd[0], "query"))
-		query_nn(cmd);
-		*/
+	free_array(m->v, 2);
+	free(m);
 }

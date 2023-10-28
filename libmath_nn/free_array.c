@@ -10,58 +10,30 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| cli.c |
-//+=======+
+//| free_array.c |
+//+==============+
 
 #include "neural_network.h"
 
-void	print_cmd(char **cmd)
+void	free_array_nodes(void *node, size_t size, unsigned int dimension)
 {
-	int	i;
-
-	i = 0;
-	while (cmd[i] != NULL)
+	if (node == NULL)
+		return ;
+	while (*(void **)node != NULL)
 	{
-		write(1, cmd[i], strlen(cmd[i]));
-		write(1, "\n", 1);
-		i++;
+		if (dimension > 2)
+			free_array_nodes(*(void **)node, size, dimension - 1);
+		free(*(void **)node);
+		node += size;
 	}
 }
 
-float	generator_test(float min, float max)
+//free each dimension of a dynamic multi-dimensionnal
+//array NULL terminated on any other dimension than the first
+void	free_array(void *root, unsigned int dimension)
 {
-	(void)min;
-	(void)max;
-	return (1);
-}
-
-int	cli_loop(void)
-{
-	char	input[INPUT_LEN + 1];
-	char	**cmd;
-	t_matrix	*m;
-
-	m = matrix_new(3, 3);
-	matrix_init(m, generator_test, 0., 0.);
-	matrix_print(m);
-	matrix_free(m);
-	cmd = NULL;
-	while (1)
-	{
-		if (read_line(PROMPT, PROMPT_LEN, input, INPUT_LEN) < 0)
-			break ;
-		cmd = input_parser(input);
-		if (cmd == NULL)
-			break ;
-		if (cmd[0] != NULL)
-			cmd_parser(cmd);
-		free_array(cmd, 2);
-	}
-	return (EXIT_SUCCESS);
-}
-
-//A neural network command line interface
-int	main(void)
-{
-	return (cli_loop());
+	if (root == NULL)
+		return ;
+	free_array_nodes(root, sizeof(void *), dimension);
+	free(root);
 }
