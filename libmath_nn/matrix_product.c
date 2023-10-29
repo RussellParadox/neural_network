@@ -15,20 +15,33 @@
 
 #include "math_nn.h"
 
+float	row_col_product(t_matrix *m1, t_matrix *m2, unsigned int row, unsigned int col)
+{
+	float		result;
+	unsigned int	i;
+
+	result = 0;
+	i = 0;
+	while (i < m1->col)
+	{
+		result += m1->v[row][i] * m2->v[i][col];
+		i++;
+	}
+	return (result);
+}
+
 void	matrix_product(t_matrix *m1, t_matrix *m2, t_matrix *result)
 {
 	unsigned int	i;
 	unsigned int	j;
 
-	if (m1->col != m2->row || result->row != m1->row || result->col != m2->col)
-		return ;
 	i = 0;
 	while (i < result->row)
 	{
 		j = 0;
 		while (j < result->col)
 		{
-			result->v[i][j] = row_col_scalar(m1, i, m2, j);
+			result->v[i][j] = row_col_product(m1, m2, i, j);
 			j++;
 		}
 		i++;

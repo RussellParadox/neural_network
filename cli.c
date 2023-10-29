@@ -39,12 +39,22 @@ int	cli_loop(void)
 {
 	char	input[INPUT_LEN + 1];
 	char	**cmd;
-	t_matrix	*m;
+	t_matrix	*m1;
+	t_matrix	*m2;
+	t_matrix	*m3;
 
-	m = matrix_new(3, 3);
-	matrix_init(m, generator_test, 0., 0.);
-	matrix_print(m);
-	matrix_free(m);
+	m1 = matrix_new(3, 3);
+	m2 = matrix_new(3, 3);
+	m3 = matrix_new(3, 3);
+	matrix_init(m1, generator_test, 0, 0);
+	matrix_init(m2, NULL, 0, 0);
+	matrix_print(m1);
+	matrix_print(m2);
+	matrix_product(m1, m2, m3);
+	matrix_print(m3);
+	matrix_free(m1);
+	matrix_free(m2);
+	matrix_free(m3);
 	cmd = NULL;
 	while (1)
 	{
