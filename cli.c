@@ -43,11 +43,12 @@ int	cli_loop(void)
 	t_matrix	*m2;
 	t_matrix	*m3;
 
+	printf("fmodf: %.3f\n", fmodf(50, -5.3));
 	m1 = matrix_new(3, 3);
 	m2 = matrix_new(3, 3);
 	m3 = matrix_new(3, 3);
-	matrix_init(m1, generator_test, 0, 0);
-	matrix_init(m2, NULL, 0, 0);
+	matrix_init(m1, NULL, 0, 5);
+	matrix_init(m2, NULL, 0, 10);
 	matrix_print(m1);
 	matrix_print(m2);
 	matrix_product(m1, m2, m3);

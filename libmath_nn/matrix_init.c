@@ -15,11 +15,17 @@
 
 #include "math_nn.h"
 
+//generate random values between min and max included
 float	default_generator(float min, float max)
 {
-	(void)min;
-	(void)max;
-	return (0.);
+	static int	init_seed;
+
+	if (init_seed == 0)
+	{
+		srand(time(NULL));
+		init_seed = 1;
+	}
+	return (rand() / (float)RAND_MAX * (max - min) - min);
 }
 
 void	matrix_init(t_matrix *m, float (*generator)(float, float), float min, float max)
