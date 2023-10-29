@@ -25,7 +25,7 @@ float	default_generator(float min, float max)
 		srand(time(NULL));
 		init_seed = 1;
 	}
-	return (rand() / (float)RAND_MAX * (max - min) - min);
+	return (rand() / (float)RAND_MAX * fabsf(max - min) - fabsf(min));
 }
 
 void	matrix_init(t_matrix *m, float (*generator)(float, float), float min, float max)

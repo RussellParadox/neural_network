@@ -19,7 +19,7 @@ DEP =
 
 HEADERS =
 
-LIB_LINK =
+LIB_LINK = -lm
 
 SRC = matrix_new.c matrix_product.c matrix_print.c matrix_init.c matrix_free.c
 

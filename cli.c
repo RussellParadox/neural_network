@@ -47,8 +47,8 @@ int	cli_loop(void)
 	m1 = matrix_new(3, 3);
 	m2 = matrix_new(3, 3);
 	m3 = matrix_new(3, 3);
-	matrix_init(m1, NULL, 0, 5);
-	matrix_init(m2, NULL, 0, 10);
+	matrix_init(m1, NULL, -51, 5);
+	matrix_init(m2, NULL, -10, 10);
 	matrix_print(m1);
 	matrix_print(m2);
 	matrix_product(m1, m2, m3);

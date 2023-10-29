@@ -19,7 +19,7 @@ DEP = libmath_nn
 
 HEADERS = -Ilibmath_nn
 
-LIB_LINK = -Llibmath_nn -lmath_nn
+LIB_LINK = -Llibmath_nn -lmath_nn -lm
 
 SRC = cli.c free_array.c split_context.c input_parser.c read_line.c cmd_parser.c
 
