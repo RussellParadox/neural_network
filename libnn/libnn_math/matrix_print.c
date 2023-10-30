@@ -10,30 +10,28 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| free_array.c |
-//+==============+
+//| matrix_print.c |
+//+================+
 
-#include "neural_network.h"
+#include "nn_math.h"
 
-void	free_array_nodes(void *node, size_t size, unsigned int dimension)
+void	matrix_print(t_matrix *m)
 {
-	if (node == NULL)
-		return ;
-	while (*(void **)node != NULL)
+	unsigned int	i;
+	unsigned int	j;
+
+	printf("\n");
+	i = 0;
+	while (i < m->row)
 	{
-		if (dimension > 2)
-			free_array_nodes(*(void **)node, size, dimension - 1);
-		free(*(void **)node);
-		node += size;
+		j = 0;
+		while (j < m->col)
+		{
+			printf("\t%.2f", m->v[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
 	}
-}
-
-//free each dimension of a dynamic multi-dimensionnal
-//array NULL terminated on any other dimension than the first
-void	free_array(void *root, unsigned int dimension)
-{
-	if (root == NULL)
-		return ;
-	free_array_nodes(root, sizeof(void *), dimension);
-	free(root);
+	printf("\n");
 }

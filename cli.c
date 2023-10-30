@@ -13,7 +13,10 @@
 //| cli.c |
 //+=======+
 
-#include "neural_network.h"
+#include "nn_cli.h"
+
+//nn is for neural network
+t_neural_network	*cli_nn;
 
 void	print_cmd(char **cmd)
 {
@@ -39,23 +42,7 @@ int	cli_loop(void)
 {
 	char	input[INPUT_LEN + 1];
 	char	**cmd;
-	t_matrix	*m1;
-	t_matrix	*m2;
-	t_matrix	*m3;
-
-	printf("fmodf: %.3f\n", fmodf(50, -5.3));
-	m1 = matrix_new(3, 3);
-	m2 = matrix_new(3, 3);
-	m3 = matrix_new(3, 3);
-	matrix_init(m1, NULL, -51, 5);
-	matrix_init(m2, NULL, -10, 10);
-	matrix_print(m1);
-	matrix_print(m2);
-	matrix_product(m1, m2, m3);
-	matrix_print(m3);
-	matrix_free(m1);
-	matrix_free(m2);
-	matrix_free(m3);
+	
 	cmd = NULL;
 	while (1)
 	{
@@ -63,10 +50,10 @@ int	cli_loop(void)
 			break ;
 		cmd = input_parser(input);
 		if (cmd == NULL)
-			break ;
+			return (EXIT_FAILURE);
 		if (cmd[0] != NULL)
 			cmd_parser(cmd);
-		free_array(cmd, 2);
+		array_free(cmd, 2);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -74,5 +61,8 @@ int	cli_loop(void)
 //A neural network command line interface
 int	main(void)
 {
+	cli_nn = (t_neural_network *)malloc(sizeof(t_neural_network));
+	if (cli_nn == NULL)
+		return (EXIT_FAILURE);
 	return (cli_loop());
 }

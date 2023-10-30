@@ -10,30 +10,40 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| read_line.c |
-//+=============+
+//| nn_math.h |
+//+===========+
 
-#include "nn_cli.h"
+#ifndef NN_MATH_H
+# define NN_MATH_H
+# include <stdio.h>
+# include <stdlib.h>
+# include <stddef.h>
+# include <time.h>
+# include <math.h>
 
-//Print a prompt and wait for an input, then redirect in buffer
-int	read_line(char *prompt, int prompt_len, char *buffer, int buffer_len)
+typedef struct s_matrix
 {
-	ssize_t	read_size;
+	float		**v;
+	unsigned int	row;
+	unsigned int	col;
+}	t_matrix;
 
-	memset(buffer, '\0', buffer_len + 1);
-	if (write(1, prompt, prompt_len) < 0)
-		perror("write");
-	else
-	{
-		read_size = read(0, buffer, buffer_len);
-		if (read_size < 0)
-			perror("read");
-		else
-		{
-			if (read_size != 0)
-				buffer[read_size - 1] = '\0';
-			return (0);
-		}
-	}
-	return (-1);
-}
+//matrix new
+t_matrix	*matrix_new(unsigned int row, unsigned int col);
+
+//matrix init
+void	matrix_init(t_matrix *m, float (*generator)(float, float), float min, float max);
+
+//matrix free
+void	matrix_free(t_matrix *m);
+
+//matrix print
+void	matrix_print(t_matrix *m);
+
+//matrix product
+void	matrix_product(t_matrix *m1, t_matrix *m2, t_matrix *result);
+
+//array free
+void	array_free(void *root, unsigned int dimension);
+
+#endif

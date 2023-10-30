@@ -10,40 +10,37 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| matrix_product.c |
-//+==================+
+//| nn_free.c |
+//+===========+
 
-#include "math_nn.h"
+#include "nn.h"
 
-float	row_col_product(t_matrix *m1, t_matrix *m2, unsigned int row, unsigned int col)
-{
-	float		result;
-	unsigned int	i;
-
-	result = 0;
-	i = 0;
-	while (i < m1->col)
-	{
-		result += m1->v[row][i] * m2->v[i][col];
-		i++;
-	}
-	return (result);
-}
-
-void	matrix_product(t_matrix *m1, t_matrix *m2, t_matrix *result)
+void	nn_free(t_neural_network *nn)
 {
 	unsigned int	i;
-	unsigned int	j;
 
-	i = 0;
-	while (i < result->row)
+	if (nn != NULL)
 	{
-		j = 0;
-		while (j < result->col)
+		if (nn->node != NULL)
 		{
-			result->v[i][j] = row_col_product(m1, m2, i, j);
-			j++;
+			i = 0;
+			while (nn->node[i] != NULL)
+			{
+				matrix_free(nn->node[i]);
+				i++;
+			}
+			free(nn->node);
 		}
-		i++;
+		if (nn->weight != NULL)
+		{
+			i = 0;
+			while (nn->weight[i] != NULL)
+			{
+				matrix_free(nn->weight[i]);
+				i++;
+			}
+			free(nn->weight);
+		}
+		free(nn);
 	}
 }

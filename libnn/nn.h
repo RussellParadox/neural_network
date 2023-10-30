@@ -10,30 +10,19 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| read_line.c |
-//+=============+
+//| nn.h |
+//+======+
 
-#include "nn_cli.h"
+#ifndef NN_H
+# define NN_H
+# include <stdlib.h>
+# include <ctype.h>
+# include <nn_math.h>
 
-//Print a prompt and wait for an input, then redirect in buffer
-int	read_line(char *prompt, int prompt_len, char *buffer, int buffer_len)
+typedef struct s_neural_network
 {
-	ssize_t	read_size;
+	t_matrix	**node;
+	t_matrix	**weight;
+}	t_neural_network;
 
-	memset(buffer, '\0', buffer_len + 1);
-	if (write(1, prompt, prompt_len) < 0)
-		perror("write");
-	else
-	{
-		read_size = read(0, buffer, buffer_len);
-		if (read_size < 0)
-			perror("read");
-		else
-		{
-			if (read_size != 0)
-				buffer[read_size - 1] = '\0';
-			return (0);
-		}
-	}
-	return (-1);
-}
+#endif

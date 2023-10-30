@@ -10,19 +10,19 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| free_array.c |
+//| array_free.c |
 //+==============+
 
-#include "neural_network.h"
+#include "nn_math.h"
 
-void	free_array_nodes(void *node, size_t size, unsigned int dimension)
+void	array_nodes_free(void *node, size_t size, unsigned int dimension)
 {
 	if (node == NULL)
 		return ;
 	while (*(void **)node != NULL)
 	{
 		if (dimension > 2)
-			free_array_nodes(*(void **)node, size, dimension - 1);
+			array_nodes_free(*(void **)node, size, dimension - 1);
 		free(*(void **)node);
 		node += size;
 	}
@@ -30,10 +30,10 @@ void	free_array_nodes(void *node, size_t size, unsigned int dimension)
 
 //free each dimension of a dynamic multi-dimensionnal
 //array NULL terminated on any other dimension than the first
-void	free_array(void *root, unsigned int dimension)
+void	array_free(void *root, unsigned int dimension)
 {
 	if (root == NULL)
 		return ;
-	free_array_nodes(root, sizeof(void *), dimension);
+	array_nodes_free(root, sizeof(void *), dimension);
 	free(root);
 }

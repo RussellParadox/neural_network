@@ -10,40 +10,15 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| math_nn.h |
-//+===========+
+//| exit_cli.c |
+//+============+
 
-#ifndef MATH_NN_H
-# define MATH_NN_H
-# include <stdio.h>
-# include <stdlib.h>
-# include <stddef.h>
-# include <time.h>
-# include <math.h>
+#include "nn_cli.h"
 
-typedef struct s_matrix
+extern t_neural_network	*cli_nn;
+
+void	exit_cli(char **cmd)
 {
-	float		**v;
-	unsigned int	row;
-	unsigned int	col;
-}	t_matrix;
-
-//matrix new
-t_matrix	*matrix_new(unsigned int row, unsigned int col);
-
-//matrix init
-void	matrix_init(t_matrix *m, float (*generator)(float, float), float min, float max);
-
-//matrix free
-void	matrix_free(t_matrix *m);
-
-//matrix print
-void	matrix_print(t_matrix *m);
-
-//matrix product
-void	matrix_product(t_matrix *m1, t_matrix *m2, t_matrix *result);
-
-//free array
-void	free_array(void *root, unsigned int dimension);
-
-#endif
+	free_nn(cli_nn);
+	free_array(cmd, 2);
+}

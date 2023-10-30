@@ -13,15 +13,15 @@
 #| Makefile |
 #+==========+
 
-NAME = nn_cli
+NAME = libnn.a
 
-DEP = libnn
+DEP = libnn_math
 
-HEADERS = -Ilibnn
+HEADERS = -Ilibnn_math
 
-LIB_LINK = -Llibnn -lnn -lm
+LIB_LINK = -Llibnn_math -lnn_math -lm
 
-SRC = cli.c array_free.c split_context.c input_parser.c read_line.c cmd_parser.c
+SRC = 
 
 OBJ = $(SRC:.c=.o)
 
@@ -39,7 +39,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(call make_dep,all)
-	$(CC) $(OBJ) $(HEADERS) $(LIB_LINK) -o $(NAME)
+	ar -cr $(NAME) $(OBJ)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@

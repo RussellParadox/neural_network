@@ -10,28 +10,34 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| matrix_print.c |
-//+================+
+//| nn_cli.h |
+//+==========+
 
-#include "math_nn.h"
+#ifndef NN_CLI_H
+# define NN_CLI_H
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include <nn.h>
 
-void	matrix_print(t_matrix *m)
-{
-	unsigned int	i;
-	unsigned int	j;
+//cli
+# define PROMPT ">>> "
+# define PROMPT_LEN strlen(PROMPT)
+# define INPUT_LEN 500
 
-	printf("\n");
-	i = 0;
-	while (i < m->row)
-	{
-		j = 0;
-		while (j < m->col)
-		{
-			printf("\t%.2f", m->v[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-	printf("\n");
-}
+//read line
+int	read_line(char *prompt, int prompt_len, char *buffer, int buffer_len);
+
+//array free
+void	array_free(void *root, unsigned int dimension);
+
+//split context
+char	**split_context(char *str, int (*context)(char c));
+
+//input parser
+char	**input_parser(char input[INPUT_LEN + 1]);
+
+//cmd parser
+void	cmd_parser(char **cmd);
+
+#endif

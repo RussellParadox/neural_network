@@ -13,7 +13,7 @@
 //| input_parser.c |
 //+================+
 
-#include "neural_network.h"
+#include "nn_cli.h"
 
 int	isnotspace(char c)
 {

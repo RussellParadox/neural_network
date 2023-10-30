@@ -10,41 +10,13 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| matrix_new.c |
-//+==============+
+//| matrix_free.c |
+//+===============+
 
-#include "math_nn.h"
+#include "nn_math.h"
 
-t_matrix	*matrix_new(unsigned int row, unsigned int col)
+void	matrix_free(t_matrix *m)
 {
-	t_matrix	*m;
-	unsigned int	i;
-
-	if (row < 1 || col < 1)
-		return (NULL);
-	m = (t_matrix *)malloc(sizeof(t_matrix));
-	if (m == NULL)
-		return (NULL);
-	m->v = (float **)malloc(sizeof(float *) * (row + 1));
-	if (m->v == NULL)
-	{
-		free(m);
-		return (NULL);
-	}
-	i = 0;
-	while (i < row)
-	{
-		m->v[i] = (float *)malloc(sizeof(float) * col);
-		if (m->v[i] == NULL)
-		{
-			free_array(m->v, 2);
-			free(m);
-			return (NULL);
-		}
-		i++;
-	}
-	m->v[i] = NULL;
-	m->row = row;
-	m->col = col;
-	return (m);
+	array_free(m->v, 2);
+	free(m);
 }

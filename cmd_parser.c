@@ -13,7 +13,7 @@
 //| cmd_parser.c |
 //+==============+
 
-#include "neural_network.h"
+#include "nn_cli.h"
 
 void	cmd_parser(char **cmd)
 {
@@ -22,12 +22,10 @@ void	cmd_parser(char **cmd)
 		free_array(cmd, 2);
 		exit(EXIT_SUCCESS);
 	}
-	/*
 	if (!strcmp(cmd[0], "init"))
-		init_nn(cmd);
+		init_cli_nn(cmd);
 	if (!strcmp(cmd[0], "train"))
-		train_nn(cmd);
+		train_cli_nn(cmd);
 	if (!strcmp(cmd[0], "query"))
-		query_nn(cmd);
-		*/
+		query_cli_nn(cmd);
 }

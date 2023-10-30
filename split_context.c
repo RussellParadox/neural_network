@@ -13,7 +13,7 @@
 //| split_context.c |
 //+=================+
 
-#include "neural_network.h"
+#include "nn_cli.h"
 
 unsigned int	word_size(char *str, int (*context)(char c))
 {
@@ -68,7 +68,7 @@ char	**split_context(char *str, int (*context)(char c))
 			split[i] = (char *)malloc(sizeof(char) * (size + 1));
 			if (split[i] == NULL)
 			{
-				free_array(split, 2);
+				array_free(split, 2);
 				return (NULL);
 			}
 			memcpy(split[i], str, (size_t)size);

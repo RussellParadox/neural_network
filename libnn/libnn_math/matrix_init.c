@@ -10,42 +10,40 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| neural_network.h |
-//+==================+
+//| matrix_init.c |
+//+===============+
 
-#ifndef NEURAL_NETWORK_H
-# define NEURAL_NETWORK_H
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include <ctype.h>
-# include <math_nn.h>
+#include "nn_math.h"
 
-typedef struct s_neural_network
+//generate random values between min and max included
+float	default_generator(float min, float max)
 {
-	t_matrix	*node;
-	t_matrix	*weight;
-}	t_neural_network;
+	static int	init_seed;
 
-//cli
-# define PROMPT "<<< "
-# define PROMPT_LEN strlen(PROMPT)
-# define INPUT_LEN 500
+	if (init_seed == 0)
+	{
+		srand(time(NULL));
+		init_seed = 1;
+	}
+	return (rand() / (float)RAND_MAX * fabsf(max - min) - fabsf(min));
+}
 
-//read line
-int	read_line(char *prompt, int prompt_len, char *buffer, int buffer_len);
+void	matrix_init(t_matrix *m, float (*generator)(float, float), float min, float max)
+{
+	unsigned int	i;
+	unsigned int	j;
 
-//free array
-void	free_array(void *root, unsigned int dimension);
-
-//split context
-char	**split_context(char *str, int (*context)(char c));
-
-//input parser
-char	**input_parser(char input[INPUT_LEN + 1]);
-
-//cmd parser
-void	cmd_parser(char **cmd);
-
-#endif
+	if (generator == NULL)
+		generator = &default_generator;
+	i = 0;
+	while (i < m->row)
+	{
+		j = 0;
+		while (j < m->col)
+		{
+			m->v[i][j] = (*generator)(min, max);
+			j++;
+		}
+		i++;
+	}
+}

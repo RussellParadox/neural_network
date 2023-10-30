@@ -10,30 +10,40 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| read_line.c |
-//+=============+
+//| matrix_product.c |
+//+==================+
 
-#include "nn_cli.h"
+#include "nn_math.h"
 
-//Print a prompt and wait for an input, then redirect in buffer
-int	read_line(char *prompt, int prompt_len, char *buffer, int buffer_len)
+float	row_col_product(t_matrix *m1, t_matrix *m2, unsigned int row, unsigned int col)
 {
-	ssize_t	read_size;
+	float		result;
+	unsigned int	i;
 
-	memset(buffer, '\0', buffer_len + 1);
-	if (write(1, prompt, prompt_len) < 0)
-		perror("write");
-	else
+	result = 0;
+	i = 0;
+	while (i < m1->col)
 	{
-		read_size = read(0, buffer, buffer_len);
-		if (read_size < 0)
-			perror("read");
-		else
-		{
-			if (read_size != 0)
-				buffer[read_size - 1] = '\0';
-			return (0);
-		}
+		result += m1->v[row][i] * m2->v[i][col];
+		i++;
 	}
-	return (-1);
+	return (result);
+}
+
+void	matrix_product(t_matrix *m1, t_matrix *m2, t_matrix *result)
+{
+	unsigned int	i;
+	unsigned int	j;
+
+	i = 0;
+	while (i < result->row)
+	{
+		j = 0;
+		while (j < result->col)
+		{
+			result->v[i][j] = row_col_product(m1, m2, i, j);
+			j++;
+		}
+		i++;
+	}
 }
