@@ -25,4 +25,13 @@ typedef struct s_neural_network
 	t_matrix	**weight;
 }	t_neural_network;
 
+//nn free
+void	nn_free(t_neural_network *nn);
+
+//nn new
+t_neural_network	*nn_new(unsigned int layer_size[4], float weight_min, float weight_max);
+
+//nn print
+void	nn_print(t_neural_network *nn);
+
 #endif

@@ -13,7 +13,7 @@
 #| Makefile |
 #+==========+
 
-NAME = libmath_nn.a
+NAME = libnn_math.a
 
 DEP =
 

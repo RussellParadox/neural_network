@@ -10,24 +10,19 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| cmd_parser.c |
-//+==============+
+//| nn_print.c |
+//+============+
 
-#include "nn_cli.h"
+#include "nn.h"
 
-void	cmd_parser(char **cmd)
+void	nn_print(t_neural_network *nn)
 {
-	if (!strcmp(cmd[0], "exit"))
+	unsigned int	i;
+
+	i = 0;
+	while (nn->node[i] != NULL)
 	{
-		array_free(cmd, 2);
-		exit(EXIT_SUCCESS);
+		matrix_print(nn->node[i]);
+		i++;
 	}
-	/*
-	if (!strcmp(cmd[0], "init"))
-		init_cli_nn(cmd);
-	if (!strcmp(cmd[0], "train"))
-		train_cli_nn(cmd);
-	if (!strcmp(cmd[0], "query"))
-		query_cli_nn(cmd);
-		*/
 }

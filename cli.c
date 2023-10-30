@@ -42,8 +42,18 @@ int	cli_loop(void)
 {
 	char	input[INPUT_LEN + 1];
 	char	**cmd;
-	
+	unsigned int	layer_size[4];
+
 	cmd = NULL;
+	layer_size[0] = 5;
+	layer_size[1] = 3;
+	layer_size[2] = 3;
+	layer_size[3] = 7;
+	cli_nn = nn_new(layer_size, -1, 1);
+	if (cli_nn == NULL)
+		return (EXIT_FAILURE);
+	nn_print(cli_nn);
+	nn_free(cli_nn);
 	while (1)
 	{
 		if (read_line(PROMPT, PROMPT_LEN, input, INPUT_LEN) < 0)
@@ -61,8 +71,5 @@ int	cli_loop(void)
 //A neural network command line interface
 int	main(void)
 {
-	cli_nn = (t_neural_network *)malloc(sizeof(t_neural_network));
-	if (cli_nn == NULL)
-		return (EXIT_FAILURE);
 	return (cli_loop());
 }

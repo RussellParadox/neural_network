@@ -21,7 +21,7 @@ HEADERS = -Ilibnn_math
 
 LIB_LINK = -Llibnn_math -lnn_math -lm
 
-SRC = 
+SRC = nn_new.c nn_free.c nn_print.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -39,7 +39,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(call make_dep,all)
-	ar -cr $(NAME) $(OBJ)
+	ar -cr tmp.a $(OBJ)
+	ar crsT $(NAME) libnn_math/libnn_math.a tmp.a
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@

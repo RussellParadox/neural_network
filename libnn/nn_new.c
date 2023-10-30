@@ -10,8 +10,8 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| nn_init.c |
-//+===========+
+//| nn_new.c |
+//+==========+
 
 #include "nn.h"
 
@@ -22,17 +22,20 @@ static int	init_node(t_neural_network *nn, unsigned int layer_size[4])
 	nn->node[0] = matrix_new(layer_size[1], 1);
 	if (nn->node[0] == NULL)
 		return (-1);
+	matrix_init(nn->node[0], NULL, 0, 0);
 	i = 1;
 	while (i < layer_size[0] - 1)
 	{
 		nn->node[i] = matrix_new(layer_size[2], 1);
 		if (nn->node[i] == NULL)
 			return (-1);
+		matrix_init(nn->node[i], NULL, 0, 0);
 		i++;
 	}
 	nn->node[i] = matrix_new(layer_size[3], 1);
 	if (nn->node[i] == NULL)
 		return (-1);
+	matrix_init(nn->node[i], NULL, 0, 0);
 	nn->node[i + 1] = NULL;
 	return (0);
 }
@@ -89,7 +92,7 @@ t_neural_network	*nn_new(unsigned int layer_size[4], float weight_min, float wei
 	nn->weight[0] = NULL;
 	if (init_node(nn, layer_size))
 		return (NULL);
-	if (init_weight(nn, weight_min, weight_max))
+	if (init_weight(nn, layer_size, weight_min, weight_max))
 		return (NULL);
 	return (nn);
 }
