@@ -21,7 +21,7 @@ HEADERS = -Ilibnn
 
 LIB_LINK = -Llibnn -lnn -lm
 
-SRC = cli.c array_free.c split_context.c input_parser.c read_line.c cmd_parser.c
+SRC = cli.c array_free.c split_context.c input_parser.c line_read.c cmd_parser.c
 
 OBJ = $(SRC:.c=.o)
 

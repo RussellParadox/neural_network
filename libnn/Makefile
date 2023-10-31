@@ -15,13 +15,15 @@
 
 NAME = libnn.a
 
-DEP = libnn_math
+DEP =
 
-HEADERS = -Ilibnn_math
+HEADERS =
 
-LIB_LINK = -Llibnn_math -lnn_math -lm
+LIB_LINK =
 
-SRC = nn_new.c nn_free.c nn_print.c
+NN_MATH_SRC = matrix_new.c matrix_product.c matrix_print.c matrix_init.c matrix_free.c
+
+SRC = $(addprefix nn_math/, $(NN_MATH_SRC)) nn_new.c nn_free.c nn_print.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -39,8 +41,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(call make_dep,all)
-	ar -cr tmp.a $(OBJ)
-	ar crsT $(NAME) libnn_math/libnn_math.a tmp.a
+	ar -cr $(NAME) $(OBJ)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@

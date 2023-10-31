@@ -10,15 +10,30 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| exit_cli.c |
-//+============+
+//| line_read.c |
+//+=============+
 
 #include "nn_cli.h"
 
-extern t_neural_network	*cli_nn;
-
-void	exit_cli(char **cmd)
+//Print a prompt and wait for an input, then redirect in buffer
+int	line_read(char *prompt, int prompt_len, char *buffer, int buffer_len)
 {
-	free_nn(cli_nn);
-	free_array(cmd, 2);
+	ssize_t	read_size;
+
+	memset(buffer, '\0', buffer_len + 1);
+	if (write(1, prompt, prompt_len) < 0)
+		perror("write");
+	else
+	{
+		read_size = read(0, buffer, buffer_len);
+		if (read_size < 0)
+			perror("read");
+		else
+		{
+			if (read_size != 0)
+				buffer[read_size - 1] = '\0';
+			return (0);
+		}
+	}
+	return (-1);
 }

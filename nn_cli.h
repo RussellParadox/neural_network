@@ -21,12 +21,14 @@
 # include <nn.h>
 
 //cli
-# define PROMPT ">>> "
+# define PROMPT "\n>>> "
 # define PROMPT_LEN strlen(PROMPT)
 # define INPUT_LEN 500
+# define UNKNOWN_CMD "\tUnknown command."
+# define UNKNOWN_CMD_LEN strlen(UNKNOWN_CMD)
 
-//read line
-int	read_line(char *prompt, int prompt_len, char *buffer, int buffer_len);
+//line read
+int	line_read(char *prompt, int prompt_len, char *buffer, int buffer_len);
 
 //array free
 void	array_free(void *root, unsigned int dimension);

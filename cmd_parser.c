@@ -30,4 +30,6 @@ void	cmd_parser(char **cmd)
 	if (!strcmp(cmd[0], "query"))
 		query_cli_nn(cmd);
 		*/
+	else
+		write(1, UNKNOWN_CMD, UNKNOWN_CMD_LEN);
 }

@@ -17,7 +17,7 @@
 # define NN_H
 # include <stdlib.h>
 # include <ctype.h>
-# include <nn_math.h>
+# include "nn_math.h"
 
 typedef struct s_neural_network
 {
