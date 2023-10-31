@@ -32,6 +32,10 @@ int	cli_loop(void)
 	cli_nn = nn_new(layer_size, -1, 1);
 	if (cli_nn == NULL)
 		return (EXIT_FAILURE);
+	printf("before:\n");
+	nn_print(cli_nn);
+	nn_propagate(cli_nn);
+	printf("after:\n");
 	nn_print(cli_nn);
 	nn_free(cli_nn);
 	while (1)

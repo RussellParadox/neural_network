@@ -10,32 +10,19 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| nn.h |
-//+======+
+//| nn_propagate.c |
+//+================+
 
-#ifndef NN_H
-# define NN_H
-# include <stdlib.h>
-# include <ctype.h>
-# include "nn_math.h"
+#include "nn.h"
 
-typedef struct s_neural_network
+void	nn_propagate(t_neural_network *nn)
 {
-	t_matrix	**node;
-	t_matrix	**weight;
-	t_matrix	*target;
-}	t_neural_network;
+	unsigned int	i;
 
-//nn free
-void	nn_free(t_neural_network *nn);
-
-//nn new
-t_neural_network	*nn_new(unsigned int layer_size[4], float weight_min, float weight_max);
-
-//nn print
-void	nn_print(t_neural_network *nn);
-
-//nn propagate
-void	nn_propagate(t_neural_network *nn);
-
-#endif
+	i = 0;
+	while (nn->weight[i] != NULL)
+	{
+		matrix_product(nn->weight[i], nn->node[i], nn->node[i + 1]);
+		i++;
+	}
+}
