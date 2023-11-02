@@ -76,6 +76,9 @@ t_neural_network	*nn_new(unsigned int layer_size[4], float weight_min, float wei
 	nn = (t_neural_network *)malloc(sizeof(t_neural_network));
 	if (nn == NULL)
 		return (NULL);
+	nn->node = NULL;
+	nn->weight = NULL;
+	nn->target = NULL;
 	nn->node = (t_matrix **)malloc(sizeof(t_matrix *) * (layer_size[0] + 1));
 	if (nn->node == NULL)
 	{
@@ -88,11 +91,19 @@ t_neural_network	*nn_new(unsigned int layer_size[4], float weight_min, float wei
 		nn_free(nn);
 		return (NULL);
 	}
+	nn->target = matrix_new(layer_size[3], 1);
+	if (nn->target == NULL)
+	{
+		nn_free(nn);
+		return (NULL);
+	}
+	matrix_init(nn->target, NULL, 0, 0);
 	nn->node[0] = NULL;
 	nn->weight[0] = NULL;
 	if (init_node(nn, layer_size))
 		return (NULL);
 	if (init_weight(nn, layer_size, weight_min, weight_max))
 		return (NULL);
+	nn->len = layer_size[0];
 	return (nn);
 }

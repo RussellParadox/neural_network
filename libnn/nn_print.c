@@ -17,12 +17,35 @@
 
 void	nn_print(t_neural_network *nn)
 {
+	unsigned int	max_position;
 	unsigned int	i;
+	unsigned int	j;
 
+	printf("\n");
 	i = 0;
+	max_position = 1;
 	while (nn->node[i] != NULL)
 	{
-		matrix_print(nn->node[i]);
+		j = 0;
+		if (nn->node[i]->row > max_position)
+			max_position = nn->node[i]->row;
+		while (nn->node[i]->v[j] != NULL)
+		{
+			printf("\033[%dC", i * (8));
+			printf("   %.2f\n", nn->node[i]->v[j][0]);
+			j++;
+		}
 		i++;
+		printf("\033[%dA", nn->node[i - 1]->row);
 	}
+	if (nn->target->row > max_position)
+		max_position = nn->target->row;
+	j = 0;
+	while (nn->target->v[j] != NULL)
+	{
+		printf("\033[%dC", i * (8));
+		printf("   %.2f\n", nn->target->v[j][0]);
+		j++;
+	}
+	printf("\033[%dB\n", max_position + 1 - nn->target->row);
 }

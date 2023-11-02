@@ -18,5 +18,5 @@
 void	nn_train(t_neural_network *nn)
 {
 	nn_query(nn);
-	nn_backpropagation(nn);
+	nn_backpropagate(nn);
 }

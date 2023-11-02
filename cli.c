@@ -18,24 +18,39 @@
 //nn is for neural network
 t_neural_network	*cli_nn;
 
+int	is_not_comma(char c)
+{
+	if (c == ',')
+		return (0);
+	return (1);
+}
+
 int	cli_loop(void)
 {
 	char	input[INPUT_LEN + 1];
 	char	**cmd;
 	unsigned int	layer_size[4];
+	char	**label;
+	char	**value;
+	float	scale[3];
 
 	cmd = NULL;
 	layer_size[0] = 5;
-	layer_size[1] = 3;
-	layer_size[2] = 3;
+	layer_size[1] = 4;
+	layer_size[2] = 9;
 	layer_size[3] = 7;
-	cli_nn = nn_new(layer_size, -1, 1);
+	cli_nn = nn_new(layer_size, -1 / sqrtf(layer_size[2]), 1 / sqrtf(layer_size[2]));
 	if (cli_nn == NULL)
 		return (EXIT_FAILURE);
-	printf("before:\n");
+	nn_print(cli_nn);
+	label = split_context("1,2,3,4,5,6,7,8,9", &is_not_comma);
+	value = split_context("4,100,13,0,255", &is_not_comma);
+	scale[0] = 255;
+	scale[1] = 1;
+	scale[2] = 0.01;
+	nn_init(cli_nn, label, value, scale);
 	nn_print(cli_nn);
 	nn_propagate(cli_nn);
-	printf("after:\n");
 	nn_print(cli_nn);
 	nn_free(cli_nn);
 	while (1)

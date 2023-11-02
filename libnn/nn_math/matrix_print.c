@@ -20,18 +20,16 @@ void	matrix_print(t_matrix *m)
 	unsigned int	i;
 	unsigned int	j;
 
-	printf("\n");
 	i = 0;
 	while (i < m->row)
 	{
 		j = 0;
 		while (j < m->col)
 		{
-			printf("\t%.2f", m->v[i][j]);
+			printf(" %.2f", m->v[i][j]);
 			j++;
 		}
 		printf("\n");
 		i++;
 	}
-	printf("\n");
 }

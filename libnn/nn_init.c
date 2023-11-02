@@ -10,39 +10,48 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| nn_free.c |
+//| nn_init.c |
 //+===========+
 
 #include "nn.h"
 
-void	nn_free(t_neural_network *nn)
+unsigned int	label_to_index(char **label, char *value)
 {
 	unsigned int	i;
 
-	if (nn != NULL)
+	i = 0;
+	while (label[i] && strcmp(label[i], value))
+		i++;
+	return (i);
+}
+
+//Adapt the input values and target with scale, then assign it to nn.
+//
+//value[0]: label
+//value[i(!=0)]: input values
+//
+//scale[0]: input max
+//scale[1]: output max
+//scale[2]: output min
+void	nn_init(t_neural_network *nn, char **label, char **value, float scale[3])
+{
+	unsigned int	i;
+	unsigned int	label_index;
+
+	i = 0;
+	while (nn->node[0]->v[i] != NULL)
 	{
-		if (nn->node != NULL)
-		{
-			i = 0;
-			while (nn->node[i] != NULL)
-			{
-				matrix_free(nn->node[i]);
-				i++;
-			}
-			free(nn->node);
-		}
-		if (nn->weight != NULL)
-		{
-			i = 0;
-			while (nn->weight[i] != NULL)
-			{
-				matrix_free(nn->weight[i]);
-				i++;
-			}
-			free(nn->weight);
-		}
-		if (nn->target != NULL)
-			matrix_free(nn->target);
-		free(nn);
+		nn->node[0]->v[i][0] = (strtof(value[i + 1], NULL) / scale[0] * (scale[1] - scale[2])) + scale[2];
+		i++;
+	}
+	label_index = label_to_index(label, value[0]);
+	i = 0;
+	while (nn->target->v[i] != NULL)
+	{
+		if (i == label_index)
+			nn->target->v[i][0] = scale[1];
+		else
+			nn->target->v[i][0] = scale[2];
+		i++;
 	}
 }

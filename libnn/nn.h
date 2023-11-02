@@ -17,6 +17,8 @@
 # define NN_H
 # include <stdlib.h>
 # include <ctype.h>
+# include <unistd.h>
+# include <string.h>
 # include "nn_math.h"
 
 typedef struct s_neural_network
@@ -24,6 +26,7 @@ typedef struct s_neural_network
 	t_matrix	**node;
 	t_matrix	**weight;
 	t_matrix	*target;
+	unsigned int	len;
 }	t_neural_network;
 
 //nn free
@@ -34,6 +37,9 @@ t_neural_network	*nn_new(unsigned int layer_size[4], float weight_min, float wei
 
 //nn print
 void	nn_print(t_neural_network *nn);
+
+//nn init
+void	nn_init(t_neural_network *nn, char **label, char **value, float scale[3]);
 
 //nn propagate
 void	nn_propagate(t_neural_network *nn);

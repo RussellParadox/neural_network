@@ -23,7 +23,7 @@ LIB_LINK =
 
 NN_MATH_SRC = matrix_new.c matrix_product.c matrix_print.c matrix_init.c matrix_free.c
 
-SRC = $(addprefix nn_math/, $(NN_MATH_SRC)) nn_new.c nn_free.c nn_print.c nn_propagate.c
+SRC = $(addprefix nn_math/, $(NN_MATH_SRC)) nn_new.c nn_free.c nn_print.c nn_propagate.c nn_init.c
 
 OBJ = $(SRC:.c=.o)
 
