@@ -10,20 +10,12 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| nn_propagate.c |
-//+================+
+//| sigmoid_activation.c |
+//+======================+
 
-#include "nn.h"
+#include "nn_math.h"
 
-void	nn_propagate(t_neural_network *nn, float (*activation_function)(float))
+float	sigmoid_activation(float x)
 {
-	unsigned int	i;
-
-	i = 0;
-	while (nn->weight[i] != NULL)
-	{
-		matrix_product(nn->weight[i], nn->node[i], nn->node[i + 1]);
-		matrix_apply(nn->node[i + 1], activation_function);
-		i++;
-	}
+	return (1. / (1. + expf(-x)));
 }

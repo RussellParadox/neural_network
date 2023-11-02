@@ -46,4 +46,10 @@ void	matrix_product(t_matrix *m1, t_matrix *m2, t_matrix *result);
 //array free
 void	array_free(void *root, unsigned int dimension);
 
+//matrix apply
+void	matrix_apply(t_matrix *m, float (*f)(float));
+
+//sigmoid activation
+float	sigmoid_activation(float x);
+
 #endif

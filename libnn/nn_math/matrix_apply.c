@@ -10,20 +10,25 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| nn_propagate.c |
+//| matrix_apply.c |
 //+================+
 
-#include "nn.h"
+#include "nn_math.h"
 
-void	nn_propagate(t_neural_network *nn, float (*activation_function)(float))
+void	matrix_apply(t_matrix *m, float (*f)(float))
 {
 	unsigned int	i;
+	unsigned int	j;
 
 	i = 0;
-	while (nn->weight[i] != NULL)
+	while (i < m->row)
 	{
-		matrix_product(nn->weight[i], nn->node[i], nn->node[i + 1]);
-		matrix_apply(nn->node[i + 1], activation_function);
+		j = 0;
+		while (j < m->col)
+		{
+			m->v[i][j] = (*f)(m->v[i][j]);
+			j++;
+		}
 		i++;
 	}
 }

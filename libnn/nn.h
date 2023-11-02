@@ -42,6 +42,6 @@ void	nn_print(t_neural_network *nn);
 void	nn_init(t_neural_network *nn, char **label, char **value, float scale[3]);
 
 //nn propagate
-void	nn_propagate(t_neural_network *nn);
+void	nn_propagate(t_neural_network *nn, float (*activation_function)(float));
 
 #endif
