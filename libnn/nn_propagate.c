@@ -15,7 +15,7 @@
 
 #include "nn.h"
 
-void	nn_propagate(t_neural_network *nn, float (*activation_function)(float))
+void	nn_propagate(t_neural_network *nn)
 {
 	unsigned int	i;
 
@@ -23,7 +23,7 @@ void	nn_propagate(t_neural_network *nn, float (*activation_function)(float))
 	while (nn->weight[i] != NULL)
 	{
 		matrix_product(nn->weight[i], nn->node[i], nn->node[i + 1]);
-		matrix_apply(nn->node[i + 1], activation_function);
+		matrix_apply(nn->node[i + 1], nn->activation);
 		i++;
 	}
 }

@@ -50,7 +50,7 @@ int	cli_loop(void)
 	scale[2] = 0.01;
 	nn_init(cli_nn, label, value, scale);
 	nn_print(cli_nn);
-	nn_propagate(cli_nn, &sigmoid_activation);
+	nn_propagate(cli_nn);
 	nn_print(cli_nn);
 	nn_free(cli_nn);
 	while (1)

@@ -49,7 +49,12 @@ void	array_free(void *root, unsigned int dimension);
 //matrix apply
 void	matrix_apply(t_matrix *m, float (*f)(float));
 
-//sigmoid activation
-float	sigmoid_activation(float x);
+//sigmoid
+float	sigmoid(float x);
+float	sigmoid_derivative(float x);
+
+//square
+float	square(float x);
+float	square_derivative(float x);
 
 #endif

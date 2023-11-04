@@ -10,13 +10,17 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| nn_train.c |
-//+============+
+//| sigmoid.c |
+//+===========+
 
-#include "nn.h"
+#include "nn_math.h"
 
-void	nn_train(t_neural_network *nn)
+float	sigmoid(float x)
 {
-	nn_propagate(nn);
-	nn_backpropagate(nn);
+	return (1. / (1. + expf(-x)));
+}
+
+float	sigmoid_derivative(float x)
+{
+	return (sigmoid(x) * (1 - sigmoid(x)));
 }

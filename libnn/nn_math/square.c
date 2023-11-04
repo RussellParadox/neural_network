@@ -10,13 +10,17 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| nn_train.c |
-//+============+
+//| square.c |
+//+==========+
 
-#include "nn.h"
+#include "nn_math.h"
 
-void	nn_train(t_neural_network *nn)
+float	square(float x)
 {
-	nn_propagate(nn);
-	nn_backpropagate(nn);
+	return (x * x);
+}
+
+float	square_derivative(float x)
+{
+	return (2 * x);
 }

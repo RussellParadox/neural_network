@@ -10,12 +10,11 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| sigmoid_activation.c |
-//+======================+
+//| nn_backpropagate.c |
+//+====================+
 
-#include "nn_math.h"
+#include "nn.h"
 
-float	sigmoid_activation(float x)
+void	nn_backpropagate(t_neural_network *nn)
 {
-	return (1. / (1. + expf(-x)));
 }
