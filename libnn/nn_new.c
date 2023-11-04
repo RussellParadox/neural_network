@@ -40,6 +40,31 @@ static int	init_node(t_neural_network *nn, unsigned int layer_size[4])
 	return (0);
 }
 
+static int	init_error(t_neural_network *nn, unsigned int layer_size[4])
+{
+	unsigned int	i;
+
+	nn->error[0] = matrix_new(layer_size[1], 1);
+	if (nn->error[0] == NULL)
+		return (-1);
+	matrix_init(nn->error[0], NULL, 0, 0);
+	i = 1;
+	while (i < layer_size[0] - 1)
+	{
+		nn->error[i] = matrix_new(layer_size[2], 1);
+		if (nn->error[i] == NULL)
+			return (-1);
+		matrix_init(nn->error[i], NULL, 0, 0);
+		i++;
+	}
+	nn->error[i] = matrix_new(layer_size[3], 1);
+	if (nn->error[i] == NULL)
+		return (-1);
+	matrix_init(nn->error[i], NULL, 0, 0);
+	nn->error[i + 1] = NULL;
+	return (0);
+}
+
 static int	init_weight(t_neural_network *nn, unsigned int layer_size[4], float weight_min, float weight_max)
 {
 	unsigned int	i;
@@ -79,8 +104,15 @@ t_neural_network	*nn_new(unsigned int layer_size[4], float weight_min, float wei
 	nn->node = NULL;
 	nn->weight = NULL;
 	nn->target = NULL;
+	nn->error = NULL;
 	nn->node = (t_matrix **)malloc(sizeof(t_matrix *) * (layer_size[0] + 1));
 	if (nn->node == NULL)
+	{
+		nn_free(nn);
+		return (NULL);
+	}
+	nn->error = (t_matrix **)malloc(sizeof(t_matrix *) * (layer_size[0] + 1));
+	if (nn->error == NULL)
 	{
 		nn_free(nn);
 		return (NULL);
@@ -100,10 +132,17 @@ t_neural_network	*nn_new(unsigned int layer_size[4], float weight_min, float wei
 	matrix_init(nn->target, NULL, 0, 0);
 	nn->node[0] = NULL;
 	nn->weight[0] = NULL;
+	nn->error[0] = NULL;
 	if (init_node(nn, layer_size))
+		return (NULL);
+	if (init_error(nn, layer_size))
 		return (NULL);
 	if (init_weight(nn, layer_size, weight_min, weight_max))
 		return (NULL);
 	nn->len = layer_size[0];
+	nn->activation_function = NULL;
+	nn->activation_derivative = NULL;
+	nn->error_function = NULL;
+	nn->error_derivative = NULL;
 	return (nn);
 }

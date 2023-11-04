@@ -28,9 +28,10 @@ typedef struct s_neural_network
 	t_matrix	**weight;
 	t_matrix	*target;
 	unsigned int	len;
-	float		(*activation)(float);
-	float		(*error_derivative)(float);
+	float		(*activation_function)(float);
 	float		(*activation_derivative)(float);
+	float		(*error_function)(float);
+	float		(*error_derivative)(float);
 	float		learning_rate;
 }	t_neural_network;
 
@@ -41,7 +42,9 @@ void	nn_free(t_neural_network *nn);
 t_neural_network	*nn_new(unsigned int layer_size[4], float weight_min, float weight_max);
 
 //nn print
-void	nn_print(t_neural_network *nn);
+# define NODE 0
+# define ERROR 1
+void	nn_print(t_neural_network *nn, int mode);
 
 //nn init
 void	nn_init(t_neural_network *nn, char **label, char **value, float scale[3]);

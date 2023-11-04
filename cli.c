@@ -42,16 +42,20 @@ int	cli_loop(void)
 	cli_nn = nn_new(layer_size, -1 / sqrtf(layer_size[2]), 1 / sqrtf(layer_size[2]));
 	if (cli_nn == NULL)
 		return (EXIT_FAILURE);
-	nn_print(cli_nn);
+	cli_nn->activation_function = &sigmoid;
+	cli_nn->error_function = &square;
+	nn_print(cli_nn, NODE);
+	nn_print(cli_nn, ERROR);
 	label = split_context("1,2,3,4,5,6,7,8,9", &is_not_comma);
 	value = split_context("4,100,13,0,255", &is_not_comma);
 	scale[0] = 255;
 	scale[1] = 1;
 	scale[2] = 0.01;
 	nn_init(cli_nn, label, value, scale);
-	nn_print(cli_nn);
+	nn_print(cli_nn, NODE);
 	nn_propagate(cli_nn);
-	nn_print(cli_nn);
+	nn_print(cli_nn, NODE);
+	nn_print(cli_nn, ERROR);
 	nn_free(cli_nn);
 	while (1)
 	{

@@ -17,4 +17,5 @@
 
 void	nn_backpropagate(t_neural_network *nn)
 {
+
 }
