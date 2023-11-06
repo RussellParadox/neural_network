@@ -24,6 +24,7 @@
 typedef struct s_neural_network
 {
 	t_matrix	**node;
+	t_matrix	**node_input;
 	t_matrix	**error;
 	t_matrix	**weight;
 	t_matrix	*target;
@@ -44,6 +45,7 @@ t_neural_network	*nn_new(unsigned int layer_size[4], float weight_min, float wei
 //nn print
 # define NODE 0
 # define ERROR 1
+# define NODE_INPUT 2
 void	nn_print(t_neural_network *nn, int mode);
 
 //nn init
@@ -51,5 +53,14 @@ void	nn_init(t_neural_network *nn, char **label, char **value, float scale[3]);
 
 //nn propagate
 void	nn_propagate(t_neural_network *nn);
+
+//nn backpropagate
+void	nn_backpropagate(t_neural_network *nn);
+
+//nn gradient descent
+void	nn_gradient_descent(t_neural_network *nn);
+
+//nn train
+void	nn_train(t_neural_network *nn);
 
 #endif

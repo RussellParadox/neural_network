@@ -41,13 +41,17 @@ void	matrix_free(t_matrix *m);
 void	matrix_print(t_matrix *m);
 
 //matrix product
+float	row_col_product(t_matrix *m1, t_matrix *m2, unsigned int row, unsigned int col);
 void	matrix_product(t_matrix *m1, t_matrix *m2, t_matrix *result);
 
 //array free
 void	array_free(void *root, unsigned int dimension);
 
 //matrix apply
-void	matrix_apply(t_matrix *m, float (*f)(float));
+void	matrix_apply(t_matrix *input, float (*f)(float), t_matrix *output);
+
+//matrix transpose
+void	matrix_transpose(t_matrix *m, t_matrix *transposed);
 
 //sigmoid
 float	sigmoid(float x);

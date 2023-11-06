@@ -35,15 +35,18 @@ int	cli_loop(void)
 	float	scale[3];
 
 	cmd = NULL;
-	layer_size[0] = 5;
-	layer_size[1] = 4;
-	layer_size[2] = 9;
-	layer_size[3] = 7;
+	layer_size[0] = 3;
+	layer_size[1] = 2;
+	layer_size[2] = 2;
+	layer_size[3] = 5;
 	cli_nn = nn_new(layer_size, -1 / sqrtf(layer_size[2]), 1 / sqrtf(layer_size[2]));
 	if (cli_nn == NULL)
 		return (EXIT_FAILURE);
 	cli_nn->activation_function = &sigmoid;
+	cli_nn->activation_derivative = &sigmoid_derivative;
 	cli_nn->error_function = &square;
+	cli_nn->error_derivative = &square_derivative;
+	cli_nn->learning_rate = 0.5;
 	nn_print(cli_nn, NODE);
 	nn_print(cli_nn, ERROR);
 	label = split_context("1,2,3,4,5,6,7,8,9", &is_not_comma);
@@ -53,10 +56,19 @@ int	cli_loop(void)
 	scale[2] = 0.01;
 	nn_init(cli_nn, label, value, scale);
 	nn_print(cli_nn, NODE);
+	nn_print(cli_nn, NODE_INPUT);
 	nn_propagate(cli_nn);
 	nn_print(cli_nn, NODE);
+	nn_print(cli_nn, NODE_INPUT);
 	nn_print(cli_nn, ERROR);
+	nn_backpropagate(cli_nn);
+	nn_print(cli_nn, ERROR);
+	matrix_print(cli_nn->weight[0]);
+	nn_gradient_descent(cli_nn);
+	matrix_print(cli_nn->weight[0]);
 	nn_free(cli_nn);
+	array_free(label, 2);
+	array_free(value, 2);
 	while (1)
 	{
 		if (line_read(PROMPT, PROMPT_LEN, input, INPUT_LEN) < 0)

@@ -22,8 +22,8 @@ void	nn_propagate(t_neural_network *nn)
 	i = 0;
 	while (nn->weight[i] != NULL)
 	{
-		matrix_product(nn->weight[i], nn->node[i], nn->node[i + 1]);
-		matrix_apply(nn->node[i + 1], nn->activation_function);
+		matrix_product(nn->weight[i], nn->node[i], nn->node_input[i + 1]);
+		matrix_apply(nn->node_input[i + 1], nn->activation_function, nn->node[i + 1]);
 		i++;
 	}
 	i = 0;
@@ -32,5 +32,4 @@ void	nn_propagate(t_neural_network *nn)
 		nn->error[nn->len - 1]->v[i][0] = nn->target->v[i][0] - nn->node[nn->len - 1]->v[i][0];
 		i++;
 	}
-	matrix_apply(nn->error[nn->len - 1], nn->error_function);
 }

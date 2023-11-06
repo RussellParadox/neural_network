@@ -19,4 +19,5 @@ void	nn_train(t_neural_network *nn)
 {
 	nn_propagate(nn);
 	nn_backpropagate(nn);
+	nn_gradient_descent(nn);
 }

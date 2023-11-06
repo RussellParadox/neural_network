@@ -31,6 +31,16 @@ void	nn_free(t_neural_network *nn)
 			}
 			free(nn->node);
 		}
+		if (nn->node_input != NULL)
+		{
+			i = 0;
+			while (nn->node_input[i] != NULL)
+			{
+				matrix_free(nn->node_input[i]);
+				i++;
+			}
+			free(nn->node_input);
+		}
 		if (nn->error != NULL)
 		{
 			i = 0;

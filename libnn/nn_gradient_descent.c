@@ -10,25 +10,33 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| matrix_apply.c |
-//+================+
+//| nn_gradient_descent.c |
+//+=======================+
 
-#include "nn_math.h"
+#include "nn.h"
 
-void	matrix_apply(t_matrix *input, float (*f)(float), t_matrix *output)
+void	nn_gradient_descent(t_neural_network *nn)
 {
 	unsigned int	i;
 	unsigned int	j;
+	unsigned int	k;
 
-	i = 0;
-	while (i < input->row)
+	i = nn->len - 2;
+	while (1)
 	{
 		j = 0;
-		while (j < input->col)
+		while (j < nn->weight[i]->row)
 		{
-			output->v[i][j] = (*f)(input->v[i][j]);
+			k = 0;
+			while (k < nn->weight[i]->col)
+			{
+				nn->weight[i]->v[j][k] += nn->learning_rate * (*nn->error_derivative)(nn->error[i + 1]->v[j][0]) * (*nn->activation_derivative)(nn->node_input[i + 1]->v[j][0]) * nn->node[i]->v[k][0];
+				k++;
+			}
 			j++;
 		}
-		i++;
+		if (i == 0)
+			break ;
+		i--;
 	}
 }

@@ -27,6 +27,11 @@ void	nn_print(t_neural_network *nn, int mode)
 		print = nn->node;
 		printf("NODES:\n");
 	}
+	if (mode == NODE_INPUT)
+	{
+		print = nn->node_input;
+		printf("NODES INPUT:\n");
+	}
 	if (mode == ERROR)
 	{
 		print = nn->error;

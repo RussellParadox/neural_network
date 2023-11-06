@@ -10,23 +10,23 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| matrix_apply.c |
-//+================+
+//| matrix_transpose.c |
+//+====================+
 
 #include "nn_math.h"
 
-void	matrix_apply(t_matrix *input, float (*f)(float), t_matrix *output)
+void	matrix_transpose(t_matrix *m, t_matrix *transposed)
 {
 	unsigned int	i;
 	unsigned int	j;
 
 	i = 0;
-	while (i < input->row)
+	while (i < transposed->row)
 	{
 		j = 0;
-		while (j < input->col)
+		while (j < transposed->col)
 		{
-			output->v[i][j] = (*f)(input->v[i][j]);
+			transposed->v[i][j] = m->v[j][i];
 			j++;
 		}
 		i++;
