@@ -17,11 +17,13 @@ NAME = nn_cli
 
 DEP = libnn
 
-HEADERS = -Ilibnn
+HEADERS = -Ilibnn -Icli_header
 
 LIB_LINK = -Llibnn -lnn -lm
 
-SRC = cli.c array_free.c split_context.c input_parser.c line_read.c cmd_parser.c
+CLI_SRC = cli.c array_free.c split_context.c input_parser.c line_read.c cmd_parser.c
+
+SRC = $(addprefix cli_src/, $(CLI_SRC))
 
 OBJ = $(SRC:.c=.o)
 
