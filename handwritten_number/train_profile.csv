@@ -1,0 +1,6 @@
+activation function,sigmoid
+activation derivative,sigmoid_derivative
+error function,square
+error derivative,square_derivative
+learning rate,0.5
+scale range,0.01,1

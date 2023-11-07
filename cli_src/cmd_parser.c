@@ -22,19 +22,17 @@ void	cmd_parser(char **cmd)
 	if (!strcmp(cmd[0], "exit"))
 	{
 		array_free(cmd, 2);
-		//nn_free(cli_nn);
+		nn_free(cli_nn);
 		exit(EXIT_SUCCESS);
 	}
-	/*
 	if (!strcmp(cmd[0], "load"))
-		cli_nn_load(cmd);
+		load(cmd);
 	if (!strcmp(cmd[0], "init"))
-		cli_nn_init(cmd);
+		init(cmd);
 	if (!strcmp(cmd[0], "train"))
-		cli_nn_train(cmd);
+		train(cmd);
 	if (!strcmp(cmd[0], "query"))
-		cli_nn_query(cmd);
-		*/
+		query(cmd);
 	else
 		write(1, UNKNOWN_CMD, UNKNOWN_CMD_LEN);
 }

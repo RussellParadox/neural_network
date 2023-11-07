@@ -10,37 +10,14 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| cli.c |
-//+=======+
+//| is_not_comma.c |
+//+================+
 
 #include "nn_cli.h"
 
-//nn is for neural network
-t_neural_network	*cli_nn;
-
-
-int	cli_loop(void)
+int	is_not_comma(char c)
 {
-	char	input[INPUT_LEN + 1];
-	char	**cmd;
-
-	while (1)
-	{
-		if (line_read(PROMPT, PROMPT_LEN, input, INPUT_LEN) < 0)
-			break ;
-		cmd = input_parser(input);
-		if (cmd == NULL)
-			return (EXIT_FAILURE);
-		if (cmd[0] != NULL)
-			cmd_parser(cmd);
-		array_free(cmd, 2);
-	}
-	return (EXIT_SUCCESS);
-}
-
-//A neural network command line interface
-int	main(void)
-{
-	cli_nn = NULL;
-	return (cli_loop());
+	if (c == ',')
+		return (0);
+	return (1);
 }

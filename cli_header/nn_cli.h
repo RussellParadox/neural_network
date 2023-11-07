@@ -26,6 +26,10 @@
 # define INPUT_LEN 500
 # define UNKNOWN_CMD "\tUnknown command."
 # define UNKNOWN_CMD_LEN strlen(UNKNOWN_CMD)
+# define ARG_QT_ERROR "Wrong argument quantity."
+# define ARG_QT_ERROR_LEN strlen(ARG_QT_ERROR)
+# define FILE_FORMAT_ERROR "Wrongly formatted file."
+# define FILE_FORMAT_ERROR_LEN strlen(FILE_FORMAT_ERROR)
 
 //line read
 int	line_read(char *prompt, int prompt_len, char *buffer, int buffer_len);
@@ -41,5 +45,11 @@ char	**input_parser(char input[INPUT_LEN + 1]);
 
 //cmd parser
 void	cmd_parser(char **cmd);
+
+//split len
+unsigned int	split_len(char **split);
+
+//is not comma
+int	is_not_comma(char c);
 
 #endif

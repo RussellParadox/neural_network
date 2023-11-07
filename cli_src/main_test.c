@@ -10,37 +10,21 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| cli.c |
-//+=======+
+//| main_test.c |
+//+=============+
 
-#include "nn_cli.h"
+#include <stdio.h>
+#include <unistd.h>
 
-//nn is for neural network
-t_neural_network	*cli_nn;
-
-
-int	cli_loop(void)
-{
-	char	input[INPUT_LEN + 1];
-	char	**cmd;
-
-	while (1)
-	{
-		if (line_read(PROMPT, PROMPT_LEN, input, INPUT_LEN) < 0)
-			break ;
-		cmd = input_parser(input);
-		if (cmd == NULL)
-			return (EXIT_FAILURE);
-		if (cmd[0] != NULL)
-			cmd_parser(cmd);
-		array_free(cmd, 2);
-	}
-	return (EXIT_SUCCESS);
-}
-
-//A neural network command line interface
 int	main(void)
 {
-	cli_nn = NULL;
-	return (cli_loop());
+	FILE	*f;
+
+	if (!access("file_test", F_OK | R_OK | W_OK))
+		f = fopen("file_test", "r+");
+	else
+		f = fopen("file_test", "w+");
+	if (f == NULL)
+		printf("ah!");
+	fclose(f);
 }
