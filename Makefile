@@ -21,7 +21,7 @@ HEADERS = -Ilibnn -Icli_header
 
 LIB_LINK = -Llibnn -lnn -lm
 
-CLI_SRC = cli.c array_free.c split_context.c input_parser.c line_read.c cmd_parser.c split_len.c
+CLI_SRC = cli.c array_free.c split_context.c input_parser.c line_read.c cmd_parser.c split_len.c load.c
 
 SRC = $(addprefix cli_src/, $(CLI_SRC))
 

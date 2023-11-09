@@ -10,29 +10,11 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| cmd_parser.c |
-//+==============+
+//| save.c |
+//+========+
 
 #include "nn_cli.h"
 
-extern t_neural_network	*cli_nn;
-
-void	cmd_parser(char **cmd)
+void	save(char **cmd)
 {
-	if (!strcmp(cmd[0], "exit"))
-	{
-		array_free(cmd, 2);
-		nn_free(cli_nn);
-		exit(EXIT_SUCCESS);
-	}
-	if (!strcmp(cmd[0], "load"))
-		load(cmd);
-	/*
-	if (!strcmp(cmd[0], "train"))
-		train(cmd);
-	if (!strcmp(cmd[0], "query"))
-		query(cmd);
-		*/
-	else
-		write(1, UNKNOWN_CMD, UNKNOWN_CMD_LEN);
 }

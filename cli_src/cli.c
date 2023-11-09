@@ -18,7 +18,6 @@
 //nn is for neural network
 t_neural_network	*cli_nn;
 
-
 int	cli_loop(void)
 {
 	char	input[INPUT_LEN + 1];

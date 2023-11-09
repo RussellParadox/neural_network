@@ -1,6 +1,9 @@
+layer size,10,784,10,10
+label,0,1,2,3,4,5,6,7,8,9
+value range,0,255
+node range,0.01,1
 activation function,sigmoid
 activation derivative,sigmoid_derivative
 error function,square
 error derivative,square_derivative
 learning rate,0.5
-scale range,0.01,1

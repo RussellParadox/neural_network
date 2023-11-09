@@ -30,6 +30,10 @@
 # define ARG_QT_ERROR_LEN strlen(ARG_QT_ERROR)
 # define FILE_FORMAT_ERROR "Wrongly formatted file."
 # define FILE_FORMAT_ERROR_LEN strlen(FILE_FORMAT_ERROR)
+# define FILE_EXIST_ERROR "File not found."
+# define FILE_EXIST_ERROR_LEN strlen(FILE_EXIST_ERROR)
+# define FILE_PERMISSION_ERROR "Wrong permissions, need write and read."
+# define FILE_PERMISSION_ERROR_LEN strlen(FILE_PERMISSION_ERROR)
 
 //line read
 int	line_read(char *prompt, int prompt_len, char *buffer, int buffer_len);
@@ -51,5 +55,8 @@ unsigned int	split_len(char **split);
 
 //is not comma
 int	is_not_comma(char c);
+
+//load
+int	load(char **cmd);
 
 #endif

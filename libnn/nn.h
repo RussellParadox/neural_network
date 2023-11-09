@@ -36,6 +36,18 @@ typedef struct s_neural_network
 	float		learning_rate;
 }	t_neural_network;
 
+typedef struct s_profile
+{
+	unsigned int	layer_size[4];
+	char		**label;
+	float		scale[4];
+	float		(*activation_function)(float);
+	float		(*activation_derivative)(float);
+	float		(*error_function)(float);
+	float		(*error_derivative)(float);
+	float		learning_rate;
+}	t_profile;
+
 //nn free
 void	nn_free(t_neural_network *nn);
 
@@ -49,7 +61,7 @@ t_neural_network	*nn_new(unsigned int layer_size[4], float weight_min, float wei
 void	nn_print(t_neural_network *nn, int mode);
 
 //nn init
-void	nn_init(t_neural_network *nn, char **label, char **value, float scale[3]);
+void	nn_init(t_neural_network *nn, char **label, char **value, float scale[4]);
 
 //nn propagate
 void	nn_propagate(t_neural_network *nn);

@@ -31,9 +31,10 @@ unsigned int	label_to_index(char **label, char *value)
 //value[i(!=0)]: input values
 //
 //scale[0]: input max
-//scale[1]: output max
-//scale[2]: output min
-void	nn_init(t_neural_network *nn, char **label, char **value, float scale[3])
+//scale[1]: input min
+//scale[2]: output max
+//scale[3]: output min
+void	nn_init(t_neural_network *nn, char **label, char **value, float scale[4])
 {
 	unsigned int	i;
 	unsigned int	label_index;
@@ -41,7 +42,7 @@ void	nn_init(t_neural_network *nn, char **label, char **value, float scale[3])
 	i = 0;
 	while (nn->node[0]->v[i] != NULL)
 	{
-		nn->node[0]->v[i][0] = (strtof(value[i + 1], NULL) / scale[0] * (scale[1] - scale[2])) + scale[2];
+		nn->node[0]->v[i][0] = (strtof(value[i + 1], NULL) / (scale[0] - scale[1]) * (scale[2] - scale[3])) + scale[3];
 		i++;
 	}
 	label_index = label_to_index(label, value[0]);
@@ -49,9 +50,9 @@ void	nn_init(t_neural_network *nn, char **label, char **value, float scale[3])
 	while (nn->target->v[i] != NULL)
 	{
 		if (i == label_index)
-			nn->target->v[i][0] = scale[1];
-		else
 			nn->target->v[i][0] = scale[2];
+		else
+			nn->target->v[i][0] = scale[3];
 		i++;
 	}
 }
