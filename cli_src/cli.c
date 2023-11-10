@@ -23,6 +23,8 @@ int	cli_loop(void)
 	char	input[INPUT_LEN + 1];
 	char	**cmd;
 
+	printf("coucou");
+	fflush(stdout);
 	while (1)
 	{
 		if (line_read(PROMPT, PROMPT_LEN, input, INPUT_LEN) < 0)

@@ -25,9 +25,22 @@ void	cmd_parser(char **cmd)
 		nn_free(cli_nn);
 		exit(EXIT_SUCCESS);
 	}
-	if (!strcmp(cmd[0], "load"))
+	else if (!strcmp(cmd[0], "load"))
 	{
-		if (load(cmd) == -1)
+		if (split_len(cmd) != 3)
+			write(2, ARG_QT_ERROR, ARG_QT_ERROR_LEN);
+		else if (!strcmp(cmd[1], "profile"))
+		{
+			if (load_profile(cmd) == -1)
+			{
+				array_free(cmd, 2);
+				exit(EXIT_FAILURE);
+			}
+		}
+	}
+	else if (!strcmp(cmd[0], "save"))
+	{
+		if (save(cmd) == -1)
 		{
 			array_free(cmd, 2);
 			exit(EXIT_FAILURE);

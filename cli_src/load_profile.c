@@ -10,8 +10,8 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| load.c |
-//+========+
+//| load_profile.c |
+//+================+
 
 #include "nn_cli.h"
 
@@ -78,7 +78,7 @@ int	profile_parser(t_profile *profile, char **split)
 	return (0);
 }
 
-int	load(char **cmd)
+int	load_profile(char **cmd)
 {
 	FILE		*nn_file;
 	t_profile	cli_profile;
@@ -87,15 +87,15 @@ int	load(char **cmd)
 	char		**split;
 	unsigned int	i;
 
-	if (split_len(cmd) != 2)
+	if (split_len(cmd) != 3)
 	{
 		write(2, ARG_QT_ERROR, ARG_QT_ERROR_LEN);
 		return (0);
 	}
 	nn_file = NULL;
-	if (!access(cmd[1], F_OK | R_OK | W_OK))
-		nn_file = fopen(cmd[1], "r+");
-	else if (access(cmd[1], F_OK))
+	if (!access(cmd[2], F_OK | R_OK | W_OK))
+		nn_file = fopen(cmd[2], "r+");
+	else if (access(cmd[2], F_OK))
 		write(2, FILE_EXIST_ERROR, FILE_EXIST_ERROR_LEN);
 	else
 		write(2, FILE_PERMISSION_ERROR, FILE_PERMISSION_ERROR_LEN);

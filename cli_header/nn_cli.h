@@ -71,11 +71,14 @@ unsigned int	split_len(char **split);
 //is not comma
 int	is_not_comma(char c);
 
-//load
-int	load(char **cmd);
+//load profile
+int	load_profile(char **cmd);
 
 //function parser
 int	activation_function_parser(t_profile *profile, char *function);
 int	error_function_parser(t_profile *profile, char *function);
+
+//save
+int	save(char **cmd);
 
 #endif
