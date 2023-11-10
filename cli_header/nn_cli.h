@@ -49,6 +49,8 @@ typedef struct s_profile
 # define FILE_PERMISSION_ERROR_LEN strlen(FILE_PERMISSION_ERROR)
 # define UNKNOWN_FUNCTION_ERROR "\tUnknown function."
 # define UNKNOWN_FUNCTION_ERROR_LEN strlen(UNKNOWN_FUNCTION_ERROR)
+# define CANT_OPEN_FILE_ERROR "\tCan't open file."
+# define CANT_OPEN_FILE_ERROR_LEN strlen(CANT_OPEN_FILE_ERROR)
 
 //line read
 int	line_read(char *prompt, int prompt_len, char *buffer, int buffer_len);
@@ -57,6 +59,7 @@ int	line_read(char *prompt, int prompt_len, char *buffer, int buffer_len);
 void	array_free(void *root, unsigned int dimension);
 
 //split context
+unsigned int	word_count(char *str, int (*context)(char c));
 char	**split_context(char *str, int (*context)(char c));
 
 //input parser
@@ -71,8 +74,8 @@ unsigned int	split_len(char **split);
 //is not comma
 int	is_not_comma(char c);
 
-//load profile
-int	load_profile(char **cmd);
+//profile load
+int	profile_load(char **cmd);
 
 //function parser
 int	activation_function_parser(t_profile *profile, char *function);
@@ -80,5 +83,8 @@ int	error_function_parser(t_profile *profile, char *function);
 
 //save
 int	save(char **cmd);
+
+//weight load
+int	weight_load(char **cmd);
 
 #endif

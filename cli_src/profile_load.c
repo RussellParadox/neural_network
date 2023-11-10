@@ -78,7 +78,7 @@ int	profile_parser(t_profile *profile, char **split)
 	return (0);
 }
 
-int	load_profile(char **cmd)
+int	profile_load(char **cmd)
 {
 	FILE		*nn_file;
 	t_profile	cli_profile;
@@ -101,6 +101,11 @@ int	load_profile(char **cmd)
 		write(2, FILE_PERMISSION_ERROR, FILE_PERMISSION_ERROR_LEN);
 	if (nn_file == NULL)
 		return (0);
+	if (cli_nn != NULL)
+	{
+		nn_free(cli_nn);
+		cli_nn = NULL;
+	}
 	line = NULL;
 	cli_profile.label = NULL;
 	i = 0;

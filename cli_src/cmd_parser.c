@@ -31,7 +31,15 @@ void	cmd_parser(char **cmd)
 			write(2, ARG_QT_ERROR, ARG_QT_ERROR_LEN);
 		else if (!strcmp(cmd[1], "profile"))
 		{
-			if (load_profile(cmd) == -1)
+			if (profile_load(cmd) == -1)
+			{
+				array_free(cmd, 2);
+				exit(EXIT_FAILURE);
+			}
+		}
+		else if (!strcmp(cmd[1], "weight"))
+		{
+			if (weight_load(cmd) == -1)
 			{
 				array_free(cmd, 2);
 				exit(EXIT_FAILURE);
