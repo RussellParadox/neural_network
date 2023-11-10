@@ -29,24 +29,15 @@ typedef struct s_neural_network
 	t_matrix	**weight;
 	t_matrix	*target;
 	unsigned int	len;
-	float		(*activation_function)(float);
-	float		(*activation_derivative)(float);
-	float		(*error_function)(float);
-	float		(*error_derivative)(float);
-	float		learning_rate;
-}	t_neural_network;
-
-typedef struct s_profile
-{
-	unsigned int	layer_size[4];
 	char		**label;
+	unsigned int	layer_size[4];
 	float		scale[4];
 	float		(*activation_function)(float);
 	float		(*activation_derivative)(float);
 	float		(*error_function)(float);
 	float		(*error_derivative)(float);
 	float		learning_rate;
-}	t_profile;
+}	t_neural_network;
 
 //nn free
 void	nn_free(t_neural_network *nn);

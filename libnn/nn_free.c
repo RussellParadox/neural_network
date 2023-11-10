@@ -63,6 +63,8 @@ void	nn_free(t_neural_network *nn)
 		}
 		if (nn->target != NULL)
 			matrix_free(nn->target);
+		if (nn->label != NULL)
+			array_free(nn->label, 2);
 		free(nn);
 	}
 }

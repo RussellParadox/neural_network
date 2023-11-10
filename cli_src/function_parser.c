@@ -10,35 +10,31 @@
 //+=================================================================+
 //| project: neural_network |
 //+=========================+
-//| cmd_parser.c |
-//+==============+
+//| function_parser.c |
+//+===================+
 
 #include "nn_cli.h"
 
-extern t_neural_network	*cli_nn;
-
-void	cmd_parser(char **cmd)
+int	activation_function_parser(t_profile *profile, char *function)
 {
-	if (!strcmp(cmd[0], "exit"))
+	if (!strcmp(function, "sigmoid"))
 	{
-		array_free(cmd, 2);
-		nn_free(cli_nn);
-		exit(EXIT_SUCCESS);
+		profile->activation_function = &sigmoid;
+		profile->activation_derivative = &sigmoid_derivative;
+		return (0);
 	}
-	if (!strcmp(cmd[0], "load"))
-	{
-		if (load(cmd) == -1)
-		{
-			array_free(cmd, 2);
-			exit(EXIT_FAILURE);
-		}
-	}
-	/*
-	if (!strcmp(cmd[0], "train"))
-		train(cmd);
-	if (!strcmp(cmd[0], "query"))
-		query(cmd);
-		*/
 	else
-		write(1, UNKNOWN_CMD, UNKNOWN_CMD_LEN);
+		return (write(2, UNKNOWN_FUNCTION_ERROR, UNKNOWN_FUNCTION_ERROR_LEN) * 0 - 1);
+}
+
+int	error_function_parser(t_profile *profile, char *function)
+{
+	if (!strcmp(function, "square"))
+	{
+		profile->error_function = &square;
+		profile->error_derivative = &square_derivative;
+		return (0);
+	}
+	else
+		return (write(2, UNKNOWN_FUNCTION_ERROR, UNKNOWN_FUNCTION_ERROR_LEN) * 0 - 1);
 }

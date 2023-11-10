@@ -19,6 +19,19 @@
 # include <string.h>
 # include <unistd.h>
 # include <nn.h>
+# include <inttypes.h>
+
+typedef struct s_profile
+{
+	unsigned int	layer_size[4];
+	char		**label;
+	float		scale[4];
+	float		(*activation_function)(float);
+	float		(*activation_derivative)(float);
+	float		(*error_function)(float);
+	float		(*error_derivative)(float);
+	float		learning_rate;
+}	t_profile;
 
 //cli
 # define PROMPT "\n>>> "
@@ -26,14 +39,16 @@
 # define INPUT_LEN 500
 # define UNKNOWN_CMD "\tUnknown command."
 # define UNKNOWN_CMD_LEN strlen(UNKNOWN_CMD)
-# define ARG_QT_ERROR "Wrong argument quantity."
+# define ARG_QT_ERROR "\tWrong argument quantity."
 # define ARG_QT_ERROR_LEN strlen(ARG_QT_ERROR)
-# define FILE_FORMAT_ERROR "Wrongly formatted file."
+# define FILE_FORMAT_ERROR "\tWrongly formatted file."
 # define FILE_FORMAT_ERROR_LEN strlen(FILE_FORMAT_ERROR)
-# define FILE_EXIST_ERROR "File not found."
+# define FILE_EXIST_ERROR "\tFile not found."
 # define FILE_EXIST_ERROR_LEN strlen(FILE_EXIST_ERROR)
-# define FILE_PERMISSION_ERROR "Wrong permissions, need write and read."
+# define FILE_PERMISSION_ERROR "\tWrong permissions, need write and read."
 # define FILE_PERMISSION_ERROR_LEN strlen(FILE_PERMISSION_ERROR)
+# define UNKNOWN_FUNCTION_ERROR "\tUnknown function."
+# define UNKNOWN_FUNCTION_ERROR_LEN strlen(UNKNOWN_FUNCTION_ERROR)
 
 //line read
 int	line_read(char *prompt, int prompt_len, char *buffer, int buffer_len);
@@ -58,5 +73,9 @@ int	is_not_comma(char c);
 
 //load
 int	load(char **cmd);
+
+//function parser
+int	activation_function_parser(t_profile *profile, char *function);
+int	error_function_parser(t_profile *profile, char *function);
 
 #endif

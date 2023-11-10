@@ -97,7 +97,11 @@ static int	init_weight(t_neural_network *nn, unsigned int layer_size[4], float w
 	nn->weight[0] = matrix_new(layer_size[2], layer_size[1]);
 	if (nn->weight[0] == NULL)
 		return (-1);
+	weight_min = - 1 / sqrt(layer_size[1]);
+	weight_max = 1 / sqrt(layer_size[1]);
 	matrix_init(nn->weight[0], NULL, weight_min, weight_max);
+	weight_min = - 1 / sqrt(layer_size[2]);
+	weight_max = 1 / sqrt(layer_size[2]);
 	i = 1;
 	while (i < layer_size[0] - 2)
 	{
@@ -178,5 +182,6 @@ t_neural_network	*nn_new(unsigned int layer_size[4], float weight_min, float wei
 	nn->activation_derivative = NULL;
 	nn->error_function = NULL;
 	nn->error_derivative = NULL;
+	nn->label = NULL;
 	return (nn);
 }
