@@ -87,4 +87,10 @@ int	save(char **cmd);
 //weight load
 int	weight_load(char **cmd);
 
+//train
+int	train(char **cmd);
+
+//query
+int	query(char **cmd);
+
 #endif

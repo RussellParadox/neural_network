@@ -34,6 +34,7 @@ void	cmd_parser(char **cmd)
 			if (profile_load(cmd) == -1)
 			{
 				array_free(cmd, 2);
+				nn_free(cli_nn);
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -42,6 +43,7 @@ void	cmd_parser(char **cmd)
 			if (weight_load(cmd) == -1)
 			{
 				array_free(cmd, 2);
+				nn_free(cli_nn);
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -51,15 +53,28 @@ void	cmd_parser(char **cmd)
 		if (save(cmd) == -1)
 		{
 			array_free(cmd, 2);
+			nn_free(cli_nn);
 			exit(EXIT_FAILURE);
 		}
 	}
-	/*
-	if (!strcmp(cmd[0], "train"))
-		train(cmd);
-	if (!strcmp(cmd[0], "query"))
-		query(cmd);
-		*/
+	else if (!strcmp(cmd[0], "train"))
+	{
+		if (train(cmd) == -1)
+		{
+			array_free(cmd, 2);
+			nn_free(cli_nn);
+			exit(EXIT_FAILURE);
+		}
+	}
+	else if (!strcmp(cmd[0], "query"))
+	{
+		if (query(cmd) == -1)
+		{
+			array_free(cmd, 2);
+			nn_free(cli_nn);
+			exit(EXIT_FAILURE);
+		}
+	}
 	else
 		write(1, UNKNOWN_CMD, UNKNOWN_CMD_LEN);
 }

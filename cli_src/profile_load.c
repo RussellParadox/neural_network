@@ -138,6 +138,11 @@ int	profile_load(char **cmd)
 		line = NULL;
 		i++;
 	}
+	if (cli_profile.layer_size[3] != split_len(&(cli_profile.label[1])))
+	{
+		array_free(cli_profile.label, 2);
+		return (write(2, FILE_FORMAT_ERROR, FILE_FORMAT_ERROR_LEN) * 0);
+	}
 	fclose(nn_file);
 	cli_nn = nn_new(cli_profile.layer_size, 0, 0);
 	if (cli_nn == NULL)

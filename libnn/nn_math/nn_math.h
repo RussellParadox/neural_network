@@ -61,4 +61,7 @@ float	sigmoid_derivative(float x);
 float	square(float x);
 float	square_derivative(float x);
 
+//matrix max
+float	matrix_max(t_matrix *m);
+
 #endif
