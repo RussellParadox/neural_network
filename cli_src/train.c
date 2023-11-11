@@ -51,6 +51,7 @@ int	train(char **cmd)
 			return (write(2, FILE_FORMAT_ERROR, FILE_FORMAT_ERROR_LEN) * 0);
 		}
 		nn_init(cli_nn, &(cli_nn->label[1]), value, cli_nn->scale);
+		array_free(value, 2);
 		i = 0;
 		while (i < epoch)
 		{
@@ -60,6 +61,8 @@ int	train(char **cmd)
 			i++;
 		}
 	}
+	if (line != NULL)
+		free(line);
 	fclose(train_file);
 	return (0);
 }
